@@ -8,11 +8,8 @@ This project is a React-based web application for managing organizations. It inc
 - [Project Overview](#project-overview)
 - [Flow and Control](#flow-and-control)
 - [Folder Structure](#folder-structure)
-- [Setup and Installation](#setup-and-installation)
 - [Scripts](#scripts)
 - [Dependencies](#dependencies)
-- [Contributing](#contributing)
-- [License](#license)
 
 ---
 
