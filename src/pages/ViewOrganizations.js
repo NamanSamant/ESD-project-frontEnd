@@ -5,7 +5,6 @@ import OrganizationCard from "../components/OrganizationCard";
 
 const ViewOrganizations = () => {
     const [organizations, setOrganizations] = useState([]);
-    const [loading, setLoading] = useState(true);
     const [editOrg, setEditOrg] = useState(null); // State for editing organization
     const [formData, setFormData] = useState({ name: "", address: "" }); // Form data for editing
     const [selectedOrg, setSelectedOrg] = useState(null); // Selected organization for HR details
@@ -26,8 +25,6 @@ const ViewOrganizations = () => {
                 setOrganizations(response.data);
             } catch (error) {
                 console.error("Failed to fetch organizations:", error);
-            } finally {
-                setLoading(false);
             }
         };
 
