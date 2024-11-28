@@ -1,55 +1,24 @@
-import React, { useState } from "react";
-import API from "../api/axios";
+import React from "react";
+import useCreateOrganization from "../hooks/useCreateOrganization";
 
 const CreateOrganization = () => {
-  const [orgName, setOrgName] = useState("");
-  const [orgAddress, setorgAddress] = useState("");
-  const [hrFirstName, sethrFirstName] = useState("");
-  const [hrLastName, sethrLastName] = useState("");
-  const [hrEmail, setHrEmail] = useState("");
-  const [hrContact, sethrContact] = useState("");
-  const [success, setSuccess] = useState("");
-  const [error, setError] = useState(""); // For displaying errors
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const token = localStorage.getItem("employeeToken");
-
-    // Validate contact number
-    const contactNumberRegex = /^\d{10}$/; // Matches exactly 10 digits
-    if (!contactNumberRegex.test(hrContact)) {
-      setError("Contact number must be exactly 10 digits.");
-      return;
-    }
-
-    try {
-      const requestBody = {
-        name: orgName,
-        address: orgAddress,
-        first_name: hrFirstName,
-        last_name: hrLastName,
-        email: hrEmail,
-        contact_number: hrContact,
-      };
-      await API.post("/organizations", requestBody, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      setSuccess("Organization and HR successfully created!");
-      setError(""); // Clear errors
-    } catch (err) {
-      if (err.response) {
-        if (err.response.status === 409) {
-          setError("Organization already exists. Please try a different name.");
-        } else
-        {
-          setError("HR entry already exists.");
-        }
-      } else {
-        setError("Failed to create organization. Please check your network and try again.");
-      }
-      setSuccess("");
-    }
-  };
+  const {
+    orgName,
+    setOrgName,
+    orgAddress,
+    setOrgAddress,
+    hrFirstName,
+    setHrFirstName,
+    hrLastName,
+    setHrLastName,
+    hrEmail,
+    setHrEmail,
+    hrContact,
+    setHrContact,
+    success,
+    error,
+    handleSubmit,
+  } = useCreateOrganization();
 
   return (
     <div className="flex justify-center items-center min-h-screen my-4">
@@ -73,7 +42,7 @@ const CreateOrganization = () => {
             <textarea
               className="w-full p-2 border rounded"
               value={orgAddress}
-              onChange={(e) => setorgAddress(e.target.value)}
+              onChange={(e) => setOrgAddress(e.target.value)}
               required
             ></textarea>
           </div>
@@ -85,7 +54,7 @@ const CreateOrganization = () => {
               type="text"
               className="w-full p-2 border rounded"
               value={hrFirstName}
-              onChange={(e) => sethrFirstName(e.target.value)}
+              onChange={(e) => setHrFirstName(e.target.value)}
               required
             />
           </div>
@@ -95,7 +64,7 @@ const CreateOrganization = () => {
               type="text"
               className="w-full p-2 border rounded"
               value={hrLastName}
-              onChange={(e) => sethrLastName(e.target.value)}
+              onChange={(e) => setHrLastName(e.target.value)}
               required
             />
           </div>
@@ -115,7 +84,7 @@ const CreateOrganization = () => {
               type="text"
               className="w-full p-2 border rounded"
               value={hrContact}
-              onChange={(e) => sethrContact(e.target.value)}
+              onChange={(e) => setHrContact(e.target.value)}
               required
             />
           </div>

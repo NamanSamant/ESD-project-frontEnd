@@ -1,24 +1,8 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import API from "../api/axios";
+import React from "react";
+import useLogin from "../hooks/useLogin";
 
 const Login = ({ onLogin }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const navigate = useNavigate();
-
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await API.post("/employees/login", { email, password });
-      const token = response.data; // Assuming the JWT token is returned
-      onLogin(token); // Call the App's login handler
-      navigate("/view-organizations"); // Redirect to the view organizations page
-    } catch (err) {
-      setError("Invalid credentials");
-    }
-  };
+  const { email, setEmail, password, setPassword, error, handleLogin } = useLogin(onLogin);
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
